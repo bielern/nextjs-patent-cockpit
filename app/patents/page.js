@@ -1,27 +1,29 @@
+import { PrismaClient } from '@prisma/client'
+import Link from 'next/link'
+
+
 export default async function Page({ children }) {
     const patents = await getPatents()
   return (
     <div>
       <h1>Patents</h1>
+      <div className='py-4'>
+        <Link href="/patents/add" className='px-4 py-2 text-blue-500 border border-blue-500 hover:bg-blue-100 rounded-lg'>Add Patent</Link>
+      </div>
       <div className="flex flex-col gap-4 pt-4 w-fit">
         {patents.map(patent => <Patent key={patent.id} {...patent} />)}
       </div>
-      {children}
     </div>
   )
 }
 
-function getPatents() {
-  return Promise.resolve([
-    {
-      id: 1,
-      name: 'Patent 1',
-    },
-    {
-      id: 2,
-      name: 'Patent 2',
-    },
-  ])
+// TODO: as provider?
+export const prisma = new PrismaClient()
+
+async function getPatents() {
+    const patents = await prisma.patents.findMany()
+    //console.log(patents)
+    return patents
 }
 
 function Patent({name}) {

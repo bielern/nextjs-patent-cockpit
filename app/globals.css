@@ -7,3 +7,17 @@
     @apply text-4xl font-bold;
   }
 }
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 text-blue-500 border border-blue-500 hover:bg-blue-100 rounded-lg;
+  }
+
+  .btn-tertiary {
+    @apply px-4 py-2 text-blue-500 hover:text-blue-600;
+  }
+}

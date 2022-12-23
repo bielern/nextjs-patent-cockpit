@@ -20,6 +20,41 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Prisma
+
+Create a database with
+
+```bash
+createdb pc
+```
+
+Run/Generate migration with
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Seed the database with
+
+```bash
+npx prisma db seed
+```
+
+### Client
+
+Install the client with
+
+```
+npm install @prisma/client
+```
+
+and generate the client (I think after each migration) with 
+
+```
+npx prisma generate
+```
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       <body>
         <main className={inter.className + ' bg-slate-100 min-h-screen'}>
           <div className="flex flex-row items-center gap-12 p-4 bg-slate-200">
-            <Link href="/" className='flex flex-row items-center gap-4'>
+            <Link href="/" className='flex flex-row items-center gap-4 font-medium'>
               <Image
                 src="/favicon.svg"
                 alt='Patent Cockpit logo'
