@@ -1,9 +1,10 @@
-import { PrismaClient } from '@prisma/client'
+//import { PrismaClient } from '@prisma/client'
+import { prisma } from 'lib/database'
 import Link from 'next/link'
 
 
 export default async function Page({ children }) {
-    const patents = await getPatents()
+  const patents = await getPatents()
   return (
     <div>
       <h1>Patents</h1>
@@ -16,9 +17,6 @@ export default async function Page({ children }) {
     </div>
   )
 }
-
-// TODO: as provider?
-export const prisma = new PrismaClient()
 
 async function getPatents() {
     const patents = await prisma.patents.findMany()

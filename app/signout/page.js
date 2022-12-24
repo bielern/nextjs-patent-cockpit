@@ -8,7 +8,7 @@ export default function SignoutPage() {
 
     useEffect(() => {
       if (router) {
-          fetch("/api/signout").then(() => {
+          fetch("/api/auth/signout").then(() => {
               router.refresh()
               router.push("/")
           })
