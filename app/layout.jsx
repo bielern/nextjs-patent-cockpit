@@ -3,8 +3,11 @@ import Link from 'next/link'
 import { Inter } from '@next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 import './globals.css'
+import useUser from 'lib/useUser'
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const {isLoggedIn, email} = await useUser()
+
   return (
     <html lang="en">
       {/*
@@ -27,8 +30,12 @@ export default function RootLayout({ children }) {
                 Patent Cockpit
               </span>
             </Link>
-            <Link className='font-medium' href="/patents">Patents</Link>
-            <Link className='font-medium' href="/products">Products</Link>
+            {isLoggedIn 
+              ? <>
+                <Link className='font-medium' href="/patents">Patents</Link>
+                <Link href="/signout" className='ml-auto font-medium'>{email}</Link>
+              </>
+              : <Link className='ml-auto font-medium' href="/login">Login</Link> }
           </div>
           <div className='p-4'>
             {children}
