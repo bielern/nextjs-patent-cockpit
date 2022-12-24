@@ -2,11 +2,11 @@
 import { prisma } from 'lib/database'
 import useUser from 'lib/useUser'
 import Link from 'next/link'
+import Patent from './patent'
 
 
 export default async function Page({ children }) {
   const user = await useUser()
-  console.log({user})
   const patents = await getPatents(user.id)
   return (
     <div>
@@ -22,14 +22,9 @@ export default async function Page({ children }) {
 }
 
 async function getPatents(userId) {
-  console.log({userId})
-    const patents = await prisma.patents.findMany({where: {userId}})
-    //console.log(patents)
-    return patents
+  //console.log({userId})
+  const patents = await prisma.patents.findMany({ where: { userId } })
+  //console.log(patents)
+  return patents
 }
 
-function Patent({name}) {
-    return <div className="bg-slate-200 p-4 rounded-lg">
-        <h2>{name}</h2>
-    </div>
-}
