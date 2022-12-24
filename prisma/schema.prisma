@@ -8,12 +8,15 @@ datasource db {
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   password String
+  patents  patents[]
 }
 
 model patents {
   id      Int      @id @default(autoincrement())
   name    String   @db.VarChar(255)
+  user    users    @relation(fields: [userId], references: [id])
+  userId  Int
 }

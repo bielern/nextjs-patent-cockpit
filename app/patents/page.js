@@ -1,10 +1,13 @@
 //import { PrismaClient } from '@prisma/client'
 import { prisma } from 'lib/database'
+import useUser from 'lib/useUser'
 import Link from 'next/link'
 
 
 export default async function Page({ children }) {
-  const patents = await getPatents()
+  const user = await useUser()
+  console.log({user})
+  const patents = await getPatents(user.id)
   return (
     <div>
       <h1>Patents</h1>
@@ -18,8 +21,9 @@ export default async function Page({ children }) {
   )
 }
 
-async function getPatents() {
-    const patents = await prisma.patents.findMany()
+async function getPatents(userId) {
+  console.log({userId})
+    const patents = await prisma.patents.findMany({where: {userId}})
     //console.log(patents)
     return patents
 }
