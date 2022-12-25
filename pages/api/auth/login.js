@@ -5,7 +5,6 @@ import { verifyPassword } from "lib/password";
 export default withSessionRoute(async (req, res) => {
   const { email, password } = req.body
   const user = await prisma.users.findUnique({ where: {email}})
-  console.log({user}, 'login')
   const verified = await verifyPassword(password, user.password)
   if (!user || !verified) {
     res.status(401).redirect(`/login?email=${email}&error=Unauthorized`)

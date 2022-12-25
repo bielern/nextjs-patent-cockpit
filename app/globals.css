@@ -6,18 +6,28 @@
   h1 {
     @apply text-4xl font-bold pb-4;
   }
+
+  p {
+    @apply pb-2 last:pb-0;
+  }
 }
 
 @layer components {
   .btn {
-    @apply px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg;
+    @apply px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-lg cursor-pointer;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 text-blue-500 border border-blue-500 hover:bg-blue-100 rounded-lg;
+    @apply px-4 py-2 text-blue-500 border border-blue-500 hover:bg-blue-100 rounded-lg cursor-pointer;
   }
 
   .btn-tertiary {
-    @apply px-4 py-2 text-blue-500 hover:text-blue-600;
+    @apply px-4 py-2 text-blue-500 hover:text-blue-600 cursor-pointer;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    @apply px-4 py-2 border border-gray-300 rounded-lg mt-1;
   }
 }

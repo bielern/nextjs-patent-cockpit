@@ -1,4 +1,3 @@
-//import { PrismaClient } from '@prisma/client'
 import { prisma } from 'lib/database'
 import useUser from 'lib/useUser'
 import Link from 'next/link'
@@ -11,10 +10,8 @@ export default async function Page({ children }) {
   return (
     <div>
       <h1>Patents</h1>
-      <div className='py-4'>
-        <Link href="/patents/add" className='px-4 py-2 text-blue-500 border border-blue-500 hover:bg-blue-100 rounded-lg'>Add Patent</Link>
-      </div>
-      <div className="flex flex-col gap-4 pt-4 w-fit">
+      <div className="flex flex-col gap-4 w-fit">
+        <Link href="/patents/add" className='self-end btn-secondary hover:bg-blue-200'>Add Patent</Link>
         {patents.map(patent => <Patent key={patent.id} {...patent} />)}
       </div>
     </div>
@@ -22,9 +19,6 @@ export default async function Page({ children }) {
 }
 
 async function getPatents(userId) {
-  //console.log({userId})
   const patents = await prisma.patents.findMany({ where: { userId } })
-  //console.log(patents)
   return patents
 }
-

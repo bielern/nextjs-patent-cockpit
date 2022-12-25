@@ -72,3 +72,7 @@ To learn more about Next.js, take a look at the following resources:
 ## Notes
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## License
+
+The favicon and the name "Patent Cockpit" belong to [Artemis IPM GmbH](https://artemis-ipm.com).

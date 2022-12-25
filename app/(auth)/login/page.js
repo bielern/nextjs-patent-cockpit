@@ -18,7 +18,7 @@ export default function Page({ searchParams }) {
 
         <input type="submit" value="Login" className="btn" />
       </form>
-      <Link href="/signup" className="text-slate-500 underline mt-4">No Login? Sign up!</Link>
+      <Link href="/signup" className="text-slate-500 underline pt-4 block">No Login? Sign up!</Link>
     </div>
   )
 }
