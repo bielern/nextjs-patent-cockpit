@@ -20,11 +20,18 @@ DATABASE_URL="postgresql://<username>@localhost:5432/pc?schema=public"
 COOKIE_PASSWORD="long_password_at_least_32_characters_long"
 ```
 
+### Web App
+
+Install the dependencies of the web app with
+```
+npm install
+```
+
 ## Running the web app locally
 
 First, run the development server:
 
-```bash
+```
 npm run dev
 ```
 
@@ -34,27 +41,18 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## [Prisma](prisma.io)
 
-Run/Generate migration with
-
-```bash
-npx prisma migrate dev --name <migration_name>
+To seed the database run
 ```
-
-Seed the database with
-
-```bash
 npx prisma db seed
 ```
 
-### Client
-
-Install the client with
+To run/generate a migration with
 
 ```
-npm install @prisma/client
+npx prisma migrate dev --name <migration_name>
 ```
 
-and generate the client (I think after each migration) with 
+After the migration, update the client with
 
 ```
 npx prisma generate
