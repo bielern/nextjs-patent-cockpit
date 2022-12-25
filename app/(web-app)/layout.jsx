@@ -1,11 +1,15 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from '@next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+
 import '../globals.css'
-import { NavBar } from './navbar'
+import useUser from 'lib/useUser'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export default async function RootLayout({ children }) {
+  const {isLoggedIn, email} = await useUser()
+
   return (
     <html lang="en">
       {/*
@@ -28,7 +32,13 @@ export default async function RootLayout({ children }) {
                 Patent Cockpit
               </span>
             </Link>
-            <NavBar />
+            {isLoggedIn
+              ? <>
+                  <Link className='font-medium' href="/patents" > Patents</Link >
+                  <Link href="/signout" className='sm:ml-auto font-medium'>{email}</Link>
+                </>
+              : <Link className='sm:ml-auto font-medium' href="/login">Login</Link>
+            }
           </div>
           <div className='p-4'>
             {children}
