@@ -1,5 +1,7 @@
 # Patent Cockpit Demo App with Next.js 13
 
+Find a quick overview in the [NOTES.md](NOTES.md).
+
 ## Setup
 
 ### Database
