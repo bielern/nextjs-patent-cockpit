@@ -1,75 +1,83 @@
 # A CRUD web app with auth using Next.js 13, iron-session and prisma
 
-[Next.js 13](https://nextjs.org) has been realeased in October 2022.
-To judge it, I have created a simple web app with authentication and some
-simple database functionality.
-I will first go over the big features like the app ([in beta](https://beta.nextjs.org/docs)) directory of this
-release. Then, I will have a small code walkthrough highlighting the most important bits and pieces.
+I have created a simple web app with authentication and some database functionality 
+to evaluate [Next.js 13](https://nextjs.org), which was released in October 2022. 
+In this review, I will first discuss the major features of this release, 
+including the app (in beta) directory. 
+Then, I will provide a brief code walkthrough, highlighting the key aspects of the app.
 
-Lately, I have become more interested 
-in server-sider-rendering web apps.
-I have tried [Remix](https://remix.run) and [Ruby on Rails](https://rubyonrails.org) so far.
-Remix showed me how easy things can become if we skip the client-side-rendering paradigm.
-However, the tooling is a bit rudimentary.
-Next, I had a go at Ruby on Rails 7, which I really liked to start with.
-Together with Hotwire and Turbo, it seems like it could be a really performant solution.
-However, I was a bit uncomfortable with the amount of (impressive) macro magic,
-and the fact, that you still need to have two different languages (Ruby and JS).
+## Server-side rendering Web-Apps
 
-The vision of where Next.js wants to be (it's not there yet),
-really appealed to me (although it still uses JS on the backend).
-So I wanted to create a simple web-app to "feel" it.
-In the future, I want to run the same experiment listed below also with
-with [Elixir](https://elixir-lang.org) and with [Clojure](https://clojure.org).
+I have recently been interested in server-side rendering (SSR) for web applications. 
+In SSR, the server handles rendering the web page and 
+sends it back to the client when the client makes a request. 
+This is different from client-side rendering (CSR), 
+in which the client's web browser uses JavaScript to render the page. 
+While CSR can provide a smooth user experience, 
+SSR tends to have a simpler code base and can be more enjoyable for developers to work with.
 
-Next JS seems to have some nice ideas from the framworks mentioned above and some more:
- - The tooling is quite nice (create-next-app, turbopack)
- - You can seamlessly integrate [Tailwind CSS](https://tailwindcss.com).
- - Database integration with [Prisma](prisma.io) is smooth.
- - Layered layouts (beta) help you design your components similar to how Remix/[React Router](https://reactrouter.com) works
- - When several components fetch the same data, the requests are deduped to speed the load up
- - You can keep the major layout parts pre-rendered (static) and serve them instantly
-   while the user or route specific content loads.
- - The developer experience is really nice: it runs locally as smooth as distributed.
- - Since it aims to create a lightweight build as possible it's also well-suited for self-hosting.
+## SSR Frameworks
 
-So, in order to test these promises, 
-I wanted to build [a simple CRUD web app](https://github.com/bielern/nextjs-patent-cockpit) 
-with authentication to manage patents.
-It should have the following features:
+I have mostly worked on client-side rendering (CSR) code bases, 
+and I have grown increasingly frustrated with the separation of client-side and server-side code. 
+I have tried two server-side rendering (SSR) frameworks: 
+[Remix](https://remix.run) and [Ruby on Rails](https://rubyonrails.org).
+Remix has somewhat limited tooling, while Ruby on Rails has a wealth of libraries and tooling thanks to its long history. 
+When combined with Hotwire and Turbo, Ruby on Rails can be quite performant. 
+However, I was somewhat discomforted by the extensive use of macro magic and 
+the need to work with two different languages (Ruby and JavaScript).
 
- - You can signup, login and signout
- - You should be able to add, edit, delete and read only your patents
+The release of Next.js 13 demonstrates a clear vision for the near future 
+(although it is not there yet). 
+To get a sense of this future, 
+I created a simple web app with authentication and database integration using Next.js. 
+I plan to create the same web app 
+using [Elixir](https://elixir-lang.org) and [Clojure](https://clojure.org)
+to compare the experiences.
 
-As I was trying out the app directory (beta), these were the negative points. 
-Some of them will probably be solved in the future or just by using the right libraries.
+## Next.js
 
- - Mutating data is a bit cumbersome. Especially for optimistic updates,
-   where you assume that the mutation will be successful and 
-   you show the changed state already without confirmation from the server.
- - Creating CRUD endpoints is still quite cumbersome and repetitive
-   but there seems to be libraries for this (e.g. [`next-crud`](https://next-crud.js.org)).
- - If your root layout already has to check if you are logged in, 
-   there isn't actually much static content to serve.
- - I am afraid that if you want really good performance (like optimistic updates),
-   you end up writing a lot of client components that mirror the database locally 
+Next.js has some appealing features, including:
+ - Nice tooling (create-next-app, turbopack)
+ - Seamless integration with [Tailwind CSS](https://tailwindcss.com)
+ - Smooth database integration with [Prisma](prisma.io)
+ - Layered layouts (beta) that allow you to design components in a similar way to Remix/[React Router](https://reactrouter.com)
+ - Request deduplication to speed up data loading when multiple components fetch the same data
+ - The ability to pre-render and serve static content instantly while user or route-specific content loads
+ - A pleasant developer experience, you can get it running locally as easily as distributed on the edge 
+ - A focus on creating lightweight builds, making it well-suited for self-hosting
+
+To test these features, I built [a simple CRUD web app](https://github.com/bielern/nextjs-patent-cockpit)
+with authentication for managing patents. 
+It has the following features:
+ - Signup, login, and signout functionality
+ - The ability to add, edit, delete, and read patents (restricted to the user's own patents)
+
+While testing the app directory (beta), I encountered some negative points. 
+Some of these may be resolved in the future or by using the right libraries:
+ - Mutating data can be cumbersome, particularly when using optimistic updates,
+   where you assume the mutation will be successful and 
+   display the changed state before receiving confirmation from the server.
+ - Creating CRUD endpoints is still somewhat repetitive and tedious, 
+   although there are libraries like [`next-crud`](https://next-crud.js.org) that may help with this.
+ - If the root layout needs to check if the user is logged in, there may not be much static content to serve.
+ - I worry that achieving good performance (such as with optimistic updates) 
+   may require writing a lot of client components that locally mirror the database 
    using something like [React-Query](https://react-query-v3.tanstack.com/).
 
-It might be that there are some easy solutions for those, that I didn't find yet.
-It took me about 6 hours or so to build it all and I still want to spend some time
-with my family over Christmas.
+It's possible that there are easy solutions for these issues that I have not yet found. 
+It took me about 8 hours to build the app, and I still wanted to spend time with my family during Christmas.
 
 
 ## The tech stack
 
-As already mentioned, I used `create-next-app` with the experimental turbopack 
-and the experimental app directory to get started.
-For styiling I am using Tailwind CSS.
-To connect to the Postgres database, I am using Prisma.
-To handle authentication, I am using [iron-session](https://github.com/vvo/iron-session#readme) 
-and [argon](https://www.npmjs.com/package/argon2) to encrypt the passwords.
-A nice article about using 
-[iron-session with mongoose](https://dev.to/fcpauldiaz/nextjs-full-example-of-next-iron-session-1019) helped me to get started.
+I used `create-next-app` with the experimental turbopack and the experimental app directory to set up my project. 
+For styling, I am using [Tailwind CSS](tailwindcss.com). 
+I am using [Prisma](prisma.io) to connect to a Postgres database, 
+and I am using [iron-session](https://github.com/vvo/iron-session#readme)
+and [argon](https://www.npmjs.com/package/argon2) to handle authentication and to encrypt passwords. 
+I found [a helpful article about using iron-session with mongoose](https://dev.to/fcpauldiaz/nextjs-full-example-of-next-iron-session-1019)
+to get started."
 
 
 ## Code Walk through
@@ -107,7 +115,7 @@ model patents {
 }
 ```
 It has two tables: one for the users (email and password) and one for the 
-patents (just the name).
+patents (just the name). Each patent belongs to one user.
 
 The prisma client is exposed in `lib/database.js`:
 ```
@@ -152,9 +160,9 @@ export default async function useUser() {
   return { isLoggedIn: false}
 }
 ```
-The code for `useUser` is very specific for server components (because of the 
-`cookies` function) as they are done in the new (beta) app directory.
-Thus, I had to manually decrypt (or "unseal") the data stored in the session cookie.
+The code for useUser is designed specifically for server components 
+(due to the cookies function) in the new (beta) app directory. 
+As a result, the data stored in the session cookie has to be manually decrypted (or "unsealed") .
 
 The `lib/config.js` file contains the iron-session config 
 ```
@@ -216,12 +224,12 @@ export default withSessionRoute(async (req, res) => {
   return res.status(200).redirect("/")
 })
 ```
-The advantage of saving the session in the cookie is that it is stateless and 
-does not require the server to keep track of the sessions.
+By saving the session state in the encrypted cookie we obtain stateless session management,
+since the server does not need to track the sessions.
 
 The code in `login.js` is similar, except that we don't create the user but look
 it up and compare the passwords.
-Then, we save all the necessary data in the session user cookie.
+Then, we save again all the necessary data in the session user cookie.
 ```
 import { withSessionRoute } from "lib/withSession";
 import { prisma } from "lib/database";
@@ -256,32 +264,32 @@ export default withSessionRoute(async (req, res) => {
 
 ## The GUI
 
-I wanted to try out the new app directory approach (beta) for this GUI.
+I wanted to try out the [new app directory approach (beta)](https://beta.nextjs.org) for this GUI.
 It is inteded to help you easily create [layered layouts](https://www.youtube.com/watch?v=6mQ3M1CUGnk&t=2s). 
 E.g. with a menu bar and then with appearing components as one navigate deeper and the deeper.
 The directory tree for this example app looks like the following:
 ```
-app
-├── (auth)
-│   ├── layout.js
-│   ├── login
-│   │   └── page.js
-│   ├── signout
-│   │   └── page.js
-│   └── signup
-│       └── page.js
-├── (web-app)
-│   ├── layout.jsx
-│   ├── page.jsx
-│   └── patents
-│       ├── [id]
-│       │   └── page.js
-│       ├── add
-│       │   └── page.js
-│       ├── page.js
-│       └── patent.js
-├── globals.css
-└── head.jsx
+app/
+|-- (auth)
+|   |-- layout.js
+|   |-- login
+|   |   `-- page.js
+|   |-- signout
+|   |   `-- page.js
+|   `-- signup
+|       `-- page.js
+|-- (web-app)
+|   |-- layout.jsx
+|   |-- page.jsx
+|   `-- patents
+|       |-- [id]
+|       |   `-- page.js
+|       |-- add
+|       |   `-- page.js
+|       |-- page.js
+|       `-- patent.js
+|-- globals.css
+`-- head.jsx
 ```
 The `(auth)` and `(web-app)` folders group the underlying routes so that they
 can share the same basic layout.
@@ -319,7 +327,7 @@ We get the user ID from the session cookie through `useUser`
 and then we use it to get the user's patents.
 This page is rendered on the server side. 
 
-On the other hand, the `Patent` component is rendered on the client and looks like this
+On the other hand, the `Patent` component is rendered on the client (`'use client'`) and looks like this
 ```
 'use client'
 
@@ -339,23 +347,25 @@ export default function Patent({ name, id }) {
     </div>
 }
 ```
-It has to be on the client because we need the Javascript defined in the delete button
-to run on the client side (when the button is clicked).
-You can also see how we have to refresh the page after deleting the patent, 
-so that it dissappears from the list of patents.
+It must be located on the client side because the 
+delete button's JavaScript code must be executed by the client when clicked.
+After deleting a patent, we have to refresh the page to remove it from the list. 
 The [official documentation on data mutation](https://beta.nextjs.org/docs/data-fetching/mutating)
-has a bit of a more complicated example for mutating data and animating the transition.
+ provides a more complex example that demonstrates how to mutate data and animate the transition.
 
-I think here in data mutation is currently the weak spot when comparing with a more
-client-side-rendering (CSR) approach to web apps.
-With CSR, we could e.g. use [React Query to do optimistic data mutation](https://react-query-v3.tanstack.com/guides/optimistic-updates).
-This is possible, because most of the time all the relevant data is mirrored on the client side.
+In my opinion, data mutation is currently a weakness of server-side rendering (SSR) 
+compared to client-side rendering (CSR). 
+With CSR, we can use tools like 
+[React Query to perform optimistic data mutation](https://react-query-v3.tanstack.com/guides/optimistic-updates),
+since most relevant data is usually mirrored on the client side.
+
 
 ### Middleware for Auth
 
-As an added layer of protection, I have added a middleware layer 
-that checks for a valid session and sends the user to `/login` if not. 
-It might not be necessary but I wanted to try it anyway:
+To further safeguard the system, I have implemented a middleware layer 
+that verifies the existence of a valid session. 
+If a valid session is not detected, the user will be redirected to the `/login` page. 
+While this may not be necessary, I decided to implement it as an additional precaution.
 ```
 import { getIronSession } from "iron-session/edge";
 import { NextResponse } from "next/server"
@@ -385,14 +395,12 @@ export const config = {
 
 ## Conclusion
 
-The new release of nextjs presents an inticing vision of the future of web apps.
-It looks like a promising path to provide a nice developer experience to 
-build a web app that scales easily from a self-hosted environment to the "state-less edge".
-I was amazed to see in which little time I was able to build the scaffold of a web-app.
-I did the same exercise a while ago with Ruby on Rails and I wasn't as happy as with Next.js now
--- even though it feels like Ruby on Rails comes with more bells and whistles right out of the box.
+The latest version of Next.js offers a promising vision of the future of web applications. 
+It appears to be a good choice for developers looking to create scalable web apps 
+that can be easily hosted on-premises or in a stateless edge environment. 
+I was impressed by how quickly I was able to set up the basic structure of a web app using Next.js. 
 
-I am still wondering how easy it will be to make a server-side rendering web app
-as responsive as a client-side rendering one.
-But I am sure that a lot of brilliant people will put a lot of effort into it in the near future.
+While it remains to be seen how easy it will be to 
+make a server-side rendering web app as responsive as a client-side rendering one, 
+I have confidence that a lot of brilliant developers will work towards this goal in the near future.
 
